@@ -66,7 +66,7 @@ app.get('/test', function(request, response) {
 	}
 	response.end();
 });
-app.listen(5500);
+app.listen(3000);
 
 /*var mysql = require('mysql');
 
