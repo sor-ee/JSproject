@@ -3,12 +3,13 @@ var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
+require('dotenv').config();
 
 var connection = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : '123',
-	database : 'projectjs'
+	host     : process.env.DB_HOST || 'localhost',
+	user     : process.env.DB_USER || 'root',
+	password : process.env.DB_PASS || '123',
+	database : process.env.DB_NAME || 'projectjs'
 });
 
 var app = express();
@@ -62,28 +63,7 @@ app.get('/home', function(request, response) {
 app.get('/test', function(request, response) {
 	if (request.session.loggedin) {
 		response.send('Welcome back to, ' + request.session.username + '!');
-		//response.sendFile(__dirname + '/test.html');
 	}
 	response.end();
 });
 app.listen(3000);
-
-/*var mysql = require('mysql');
-
-var con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password:'123' ,
-    database: 'projectjs'
-})
-
-con.connect(function(err) {
-    if(err) throw err;
-    console.log("connnected");
-    sql = "select * from user";
-    con.query(sql,function(err,result) {
-        if(err) throw err;
-        console.log(result)
-    })
-})
-*/
